@@ -1,0 +1,49 @@
+<h1 class="bg-dark text-white text-center p-4 mb-3">WORKING WITH API ASSESSMENT</h1>
+<div class="container">
+  <div class="row">
+    <div *ngFor="
+        let person of people | paginate : { itemsPerPage: 12, currentPage: p };
+        let i = index
+      " class="col-lg-3 col-md-4 col-sm-6 mb-3">
+      <div class="card">
+        <img *ngIf="person.gender == 'male'" class="card-img-top" src="/assets/images/male.jpg" alt="A Male" />
+        <img *ngIf="person.gender != 'male'" class="card-img-top" src="/assets/images/female.jpg" alt="A Female" />
+        <div class="card-body text-center">
+          <!-- Button trigger modal -->
+          <div class="d-grid gap-2">
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" [attr.data-bs-target]="'#data' + (i + 1)">
+              {{ person.name }}
+            </button>
+          </div>
+          
+        </div>
+      </div>
+  
+      <!-- Modal -->
+      <div class="modal fade" id="data{{ i + 1 }}" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="dataModalLabel">{{ person.name }}</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+              <h1>Name: <span class="badge bg-secondary">{{ person.name }}</span></h1>
+              <h1>Gender: <span class="badge bg-secondary">{{ person.gender }}</span></h1>
+              <h1>Height: <span class="badge bg-secondary">{{ person.height }}</span></h1>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-block" data-bs-dismiss="modal">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <hr /> -->
+    </div>
+  </div>
+  
+  <pagination-controls (pageChange)="p = $event" class="float-end p-2">
+  </pagination-controls>
+</div>
